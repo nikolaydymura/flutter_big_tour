@@ -1,6 +1,6 @@
 # untitled
 
-[![codecov](https://codecov.io/gh/nikolaydymura/flutter_image_filters/branch/main/graph/badge.svg?token=GCDC5TZ1N3)](https://codecov.io/gh/nikolaydymura/flutter_image_filters)
+[![codecov](https://codecov.io/gh/nikolaydymura/flutter_big_tour/branch/main/graph/badge.svg?token=IWBW1M937N)](https://codecov.io/gh/nikolaydymura/flutter_big_tour)
 
 A new Flutter project.
 
