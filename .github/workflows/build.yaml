@@ -1,0 +1,42 @@
+name: Demonstrate CI/CD in GitHub for Flutter
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.8.0
+
+      - name: Install Dependencies
+        run: flutter packages get
+
+#      - name: Format
+#        run: flutter format --set-exit-if-changed .
+#
+#      - name: Analyze
+#        run: flutter analyze lib
+
+      - name: Run tests
+        run: flutter test --no-pub --coverage
+
+      - name: Format tests
+        run: |
+          flutter pub global activate remove_from_coverage
+          remove_from_coverage -f coverage/lcov.info -r '\bshaders\b'
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: coverage/lcov.info
+          min_coverage: 10
+          exclude: 'shaders/'
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
