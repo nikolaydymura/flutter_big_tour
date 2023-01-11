@@ -16,11 +16,11 @@ jobs:
       - name: Install Dependencies
         run: flutter packages get
 
-#      - name: Format
-#        run: flutter format --set-exit-if-changed .
-#
-#      - name: Analyze
-#        run: flutter analyze lib
+      - name: Format
+        run: flutter format --set-exit-if-changed .
+
+      - name: Analyze
+        run: flutter analyze lib
 
       - name: Run tests
         run: flutter test --no-pub --coverage

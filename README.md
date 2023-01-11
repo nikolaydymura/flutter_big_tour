@@ -1,6 +1,6 @@
 # untitled
 
-[![codecov](https://codecov.io/gh/nikolaydymura/flutter_big_tour/branch/main/graph/badge.svg?token=IWBW1M937N)](https://codecov.io/gh/nikolaydymura/flutter_big_tour)
+[![codecov](https://codecov.io/gh/nikolaydymura/flutter_big_tour/branch/main/graph/badge.svg?token=IWBW1M937N)](https://codecov.io/gh/nikolaydymura/flutter_big_tour) [![Demonstrate CI/CD in GitHub for Flutter](https://github.com/nikolaydymura/flutter_big_tour/actions/workflows/build.yaml/badge.svg)](https://github.com/nikolaydymura/flutter_big_tour/actions/workflows/build.yaml)
 
 A new Flutter project.
 
