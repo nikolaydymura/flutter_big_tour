@@ -33,8 +33,8 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
           path: coverage/lcov.info
-          min_coverage: 10
-          exclude: 'shaders/'
+          min_coverage: 40
+          exclude: 'repositories/'
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
