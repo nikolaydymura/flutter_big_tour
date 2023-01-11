@@ -4,7 +4,6 @@ import 'package:untitled/blocs/albums_bloc/albums_bloc.dart';
 import 'package:untitled/extensions/build_context.dart';
 
 class PhotosPage extends StatelessWidget {
-
   const PhotosPage({super.key});
 
   @override

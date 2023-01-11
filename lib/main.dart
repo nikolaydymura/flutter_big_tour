@@ -33,10 +33,10 @@ class PetalInfo {
 
   PetalInfo(Color color, {this.filled = 0, double strokeWidth = 1.0})
       : outerPaint = Paint()
-    ..color = color
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = strokeWidth
-    ..strokeCap = StrokeCap.round,
+          ..color = color
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round,
         innerPaint = Paint()
           ..color = color
           ..style = PaintingStyle.fill;
@@ -78,11 +78,13 @@ class _Painter extends CustomPainter {
     }
   }
 
-  Path _buildPetal(Canvas canvas,
-      Offset start,
-      double radius,
-      double angle,
-      double controlRadius,) {
+  Path _buildPetal(
+    Canvas canvas,
+    Offset start,
+    double radius,
+    double angle,
+    double controlRadius,
+  ) {
     Path path = Path();
     final end = start - Offset(cos(angle) * radius, sin(angle) * radius);
 

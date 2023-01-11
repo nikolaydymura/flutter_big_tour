@@ -8,4 +8,3 @@ void setupLocator() {
   coreGetIt.registerLazySingleton(() => UsersRepository());
   coreGetIt.registerLazySingleton(() => AlbumsRepository());
 }
-

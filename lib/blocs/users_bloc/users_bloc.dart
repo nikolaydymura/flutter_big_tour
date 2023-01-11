@@ -11,14 +11,11 @@ part 'users_event.dart';
 
 part 'users_state.dart';
 
-
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
-
   UsersRepository get _usersRepository => GetIt.I.get();
   List<User>? _cached;
 
-  UsersBloc()
-      : super(UsersInitial()) {
+  UsersBloc() : super(UsersInitial()) {
     on<LoadUsersEvent>(_onLoad);
   }
 
