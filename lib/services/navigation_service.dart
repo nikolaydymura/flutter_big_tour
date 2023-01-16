@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'navigation_args.dart';
 import 'navigation_routes.dart';
 
 export 'navigation_args.dart';

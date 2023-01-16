@@ -13,7 +13,6 @@ part 'users_state.dart';
 
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersRepository get _usersRepository => GetIt.I.get();
-  List<User>? _cached;
 
   UsersBloc() : super(UsersInitial()) {
     on<LoadUsersEvent>(_onLoad);
@@ -37,7 +36,6 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
       try {
         final users = await _usersRepository.loadUsers();
         emit(UsersLoaded(users));
-        _cached = users;
       } catch (e) {
         emit(UsersInitial());
       }

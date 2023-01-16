@@ -18,8 +18,6 @@ import 'package:untitled/repositories/albums_repository.dart';
 import 'generated.mocks.dart';
 
 void main() {
-  final AutomatedTestWidgetsFlutterBinding binding =
-      AutomatedTestWidgetsFlutterBinding();
   late MockAlbumsRepository mockAlbumsRepository;
   setupLocator();
   setUp(() {
