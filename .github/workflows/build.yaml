@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  verify:
     runs-on: macos-latest
 
     steps:
@@ -40,3 +40,25 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  build_android:
+    run-on: ubuntu-latest
+    needs: [ verify ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2.8.0
+
+      - name: Install Dependencies
+        run: flutter packages get
+      - run: |
+          flutter build apk --build-name=1.0.${{github.run_number}}-${{github.sha}} --build-number=${{github.run_number}}
+        name: Building application
+      - uses: actions/upload-artifact@v3
+        name: Archive production artifacts
+        with:
+          name: android-app-1.0.${{github.run_number}}-${{github.sha}}
+          path: |
+            build/app/outputs/apk/release/app-release.apk
+          retention-days: 1
+
+
