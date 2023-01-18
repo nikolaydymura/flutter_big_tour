@@ -51,6 +51,10 @@ jobs:
       - name: Install Dependencies
         run: flutter packages get
       - run: |
+          echo 'storePassword=${{ secrets.SIGNING_VALUE }}' >> android/key.properties
+          echo 'keyPassword=${{ secrets.SIGNING_VALUE }}' >> android/key.properties
+          echo 'keyAlias=${{ secrets.SIGNING_VALUE }}' >> android/key.properties
+          echo 'storeFile=../flutter_big_tour.jks' >> android/key.properties
           flutter build apk --build-name=1.0.${{github.run_number}}-${{github.sha}} --build-number=${{github.run_number}}
         name: Building application
       - uses: actions/upload-artifact@v3
