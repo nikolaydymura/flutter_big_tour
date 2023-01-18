@@ -64,5 +64,27 @@ jobs:
           path: |
             build/app/outputs/apk/release/app-release.apk
           retention-days: 1
-
+  deploy_apps:
+    name: Upload all artifacts
+    runs-on: ubuntu-latest
+    needs: [build_android]
+    steps:
+      - uses: actions/download-artifact@v3
+        name: Download all workflow run artifacts
+        with:
+          path: ./artifacts
+      - uses: wzieba/Firebase-Distribution-Github-Action@v1
+        name: Uploading Android artifact to Firebase App Distribution
+        with:
+          appId: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: ./artifacts/android-app-1.0.${{github.run_number}}-${{github.sha}}/app-release.apk
+#      - uses: wzieba/Firebase-Distribution-Github-Action@v1
+#        name: Uploading iOS production artifact to Firebase App Distribution
+#        with:
+#          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
+#          token: ${{ secrets.FIREBASE_TOKEN }}
+#          groups: testers
+#          file: ./artifacts/ios-app-1.0.0-${{github.run_number}}-${{github.sha}}/image-video-demo.ipa
 
