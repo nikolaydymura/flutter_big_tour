@@ -1,1 +1,7 @@
 #include "Generated.xcconfig"
+
+PRODUCT_BUNDLE_IDENTIFIER=nd.flutter-big-tour
+CODE_SIGN_STYLE=Manual
+DEVELOPMENT_TEAM=8MJN994E42
+PROVISIONING_PROFILE_SPECIFIER=Flutter-Big-Tour
+CODE_SIGN_IDENTITY[sdk=iphoneos*]="Apple Distribution: Mykola Dymura (8MJN994E42)"
