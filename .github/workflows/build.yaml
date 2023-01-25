@@ -117,5 +117,5 @@ jobs:
           appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: testers
-          file: ./artifacts/ios-app-1.0.0-${{github.run_number}}-${{github.sha}}/big_tour.ipa
+          file: ./artifacts/ios-app-1.0.${{github.run_number}}-${{github.sha}}/big_tour.ipa
 
