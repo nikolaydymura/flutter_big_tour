@@ -64,10 +64,41 @@ jobs:
           path: |
             build/app/outputs/apk/release/app-release.apk
           retention-days: 1
+
+  build_ios:
+    runs-on: macos-latest
+    needs: [ verify ]
+    steps:
+      - uses: actions/checkout@v3
+        name: Downloading sources
+      - uses: subosito/flutter-action@v2.8.0
+      - run: |
+          ./generate_ios_plist.sh
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp ios/FlutterBigTour.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+          
+          security create-keychain -p "" flutter-build.keychain
+          security import ios/imagevideo.p12 -t agg -k ~/Library/Keychains/flutter-build.keychain -P "${{ secrets.CERTIFICATE_PASSWORD }}" -A
+          
+          security list-keychains -s ~/Library/Keychains/flutter-build.keychain
+          security default-keychain -s ~/Library/Keychains/flutter-build.keychain
+          security unlock-keychain -p "" ~/Library/Keychains/flutter-build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/flutter-build.keychain
+          
+          flutter build ipa --build-name=1.0.${{github.run_number}} --build-number=${{github.run_number}} --export-options-plist=ios/app-ios-export.plist
+        name: Building application
+      - uses: actions/upload-artifact@v3
+        name: Archive production artifacts
+        with:
+          name: ios-app-1.0.${{github.run_number}}-${{github.sha}}
+          path: |
+            build/ios/ipa/big_tour.ipa
+          retention-days: 1
+
   deploy_apps:
     name: Upload all artifacts
     runs-on: ubuntu-latest
-    needs: [build_android]
+    needs: [build_android, build_ios]
     steps:
       - uses: actions/download-artifact@v3
         name: Download all workflow run artifacts
@@ -80,11 +111,11 @@ jobs:
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: testers
           file: ./artifacts/android-app-1.0.${{github.run_number}}-${{github.sha}}/app-release.apk
-#      - uses: wzieba/Firebase-Distribution-Github-Action@v1
-#        name: Uploading iOS production artifact to Firebase App Distribution
-#        with:
-#          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
-#          token: ${{ secrets.FIREBASE_TOKEN }}
-#          groups: testers
-#          file: ./artifacts/ios-app-1.0.0-${{github.run_number}}-${{github.sha}}/image-video-demo.ipa
+      - uses: wzieba/Firebase-Distribution-Github-Action@v1
+        name: Uploading iOS production artifact to Firebase App Distribution
+        with:
+          appId: ${{ secrets.FIREBASE_IOS_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: ./artifacts/ios-app-1.0.0-${{github.run_number}}-${{github.sha}}/big_tour.ipa
 
